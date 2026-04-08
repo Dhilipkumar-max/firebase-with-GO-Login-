@@ -42,8 +42,23 @@ type QuizResult struct {
 
 func initFirebase() {
 	ctx := context.Background()
-	// NOTE: You must provide your serviceAccountKey.json file in this directory.
-	opt := option.WithCredentialsFile("serviceAccountKey.json")
+	
+	// Try to load from environment variable first (for production/Render)
+	credJSON := os.Getenv("FIREBASE_SERVICE_ACCOUNT_JSON")
+	var opt option.ClientOption
+	
+	if credJSON != "" {
+		// Use credentials from environment variable
+		opt = option.WithCredentialsJSON([]byte(credJSON))
+		fmt.Println("Initializing Firebase with environment credentials...")
+	} else if _, err := os.Stat("serviceAccountKey.json"); err == nil {
+		// Fall back to local file (for development)
+		opt = option.WithCredentialsFile("serviceAccountKey.json")
+		fmt.Println("Initializing Firebase with local serviceAccountKey.json...")
+	} else {
+		log.Fatal("FIREBASE_SERVICE_ACCOUNT_JSON not set and serviceAccountKey.json not found")
+	}
+	
 	app, err := firebase.NewApp(ctx, nil, opt)
 	if err != nil {
 		log.Fatalf("error initializing app: %v\n", err)
@@ -175,14 +190,7 @@ func submitResultHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	// Initialize Firebase
-	// Check if serviceAccountKey.json exists
-	if _, err := os.Stat("serviceAccountKey.json"); os.IsNotExist(err) {
-		fmt.Println("WARNING: serviceAccountKey.json NOT FOUND.")
-		fmt.Println("Please download your Firebase Service Account Key and rename it to 'serviceAccountKey.json'.")
-		// We'll proceed so the server can start, but Firestore operations will fail.
-	} else {
-		initFirebase()
-	}
+	initFirebase()
 
 	r := mux.NewRouter()
 	r.HandleFunc("/api/auth/signup", signupHandler).Methods("POST")
@@ -199,7 +207,11 @@ func main() {
 
 	handler := c.Handler(r)
 
-	port := "8080"
+	// Get port from environment (Render sets this) or default to 8080
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 	fmt.Printf("Server starting on port %s...\n", port)
 	log.Fatal(http.ListenAndServe(":"+port, handler))
 }
