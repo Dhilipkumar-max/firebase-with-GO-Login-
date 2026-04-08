@@ -1,0 +1,324 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* GFG Theme Colors */
+  --primary-color: #0F9D58;
+  --accent-color: #22c55e;
+  --bg-light: #f8fafc;
+  --bg-dark: #020617;
+  --bg-dark-secondary: #0f172a;
+  --text-light: #1e293b;
+  --text-dark: #f8fafc;
+  --card-light: #ffffff;
+  --card-dark: #1e293b;
+  --input-bg-light: #f1f5f9;
+  --input-bg-dark: #334155;
+  --error-color: #ef4444;
+  --success-color: #10b981;
+  --border-light: #e2e8f0;
+  --border-dark: #334155;
+  
+  --font-family: 'Outfit', sans-serif;
+  --transition-smooth: all 0.5s ease-in-out;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  transition: var(--transition-smooth);
+  overflow-x: hidden;
+}
+
+body.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Card Styling */
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background-color: var(--card-light);
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  transition: var(--transition-smooth);
+  border: 1px solid var(--border-light);
+}
+
+.dark-mode .auth-card {
+  background-color: var(--bg-dark-secondary);
+  border-color: var(--border-dark);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Typography */
+h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  color: inherit;
+}
+
+p.subtitle {
+  color: #64748b;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 0.95rem;
+}
+
+.dark-mode p.subtitle {
+  color: #94a3b8;
+}
+
+/* Inputs */
+.form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  color: #64748b;
+}
+
+.dark-mode label {
+  color: #94a3b8;
+}
+
+input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  border: 2px solid transparent;
+  background-color: var(--input-bg-light);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--transition-smooth);
+  color: var(--text-light);
+}
+
+.dark-mode input {
+  background-color: var(--input-bg-dark);
+  color: var(--text-dark);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: transparent;
+  box-shadow: 0 0 15px rgba(15, 157, 88, 0.1);
+}
+
+/* Buttons */
+.btn-primary {
+  width: 100%;
+  padding: 1.1rem;
+  border-radius: 0.75rem;
+  border: none;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  margin-top: 1rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(15, 157, 88, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 2rem 0;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.dark-mode .divider::before,
+.dark-mode .divider::after {
+  border-bottom-color: var(--border-dark);
+}
+
+.divider:not(:empty)::before {
+  margin-right: 1rem;
+}
+
+.divider:not(:empty)::after {
+  margin-left: 1rem;
+}
+
+/* Social Buttons */
+.social-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.btn-social {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem;
+  border: 1px solid var(--border-light);
+  border-radius: 0.75rem;
+  background: transparent;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: inherit;
+}
+
+.dark-mode .btn-social {
+  border-color: var(--border-dark);
+}
+
+.btn-social:hover {
+  background-color: var(--input-bg-light);
+  transform: translateY(-1px);
+}
+
+.dark-mode .btn-social:hover {
+  background-color: var(--input-bg-dark);
+}
+
+.btn-social svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Auth Links */
+.auth-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.auth-footer span {
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-footer span:hover {
+  text-decoration: underline;
+}
+
+/* Utilities */
+.forgot-password {
+  display: block;
+  text-align: right;
+  font-size: 0.8rem;
+  color: var(--primary-color);
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* Header */
+.architect-header {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
+}
+
+.need-help {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 0.875rem;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.dark-mode .need-help {
+  color: #94a3b8;
+}
+
+/* Quiz Specific */
+.option-hover:hover {
+  border-color: var(--primary-color) !important;
+  background-color: rgba(15, 157, 88, 0.05) !important;
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(15, 157, 88, 0.1);
+}
+
+.dark-mode .option-hover {
+  background-color: var(--input-bg-dark);
+  color: var(--text-dark);
+}
+
+.dark-mode .option-hover:hover {
+  background-color: rgba(15, 157, 88, 0.15) !important;
+}

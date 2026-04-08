@@ -1,0 +1,25 @@
+﻿# Ignore local dependencies
+node_modules/
+frontend/node_modules/
+
+# Ignore build output
+dist/
+frontend/dist/
+
+# Ignore OS files
+.DS_Store
+
+# Ignore env and local secret files
+.env
+*.env
+firebase-debug.log
+
+# Ignore compiled binaries
+*.exe
+*.dll
+*.so
+
+# Ignore Firebase service account keys
+serviceAccountKey.json
+backend/login-cc8dd-firebase-adminsdk-fbsvc-f494e8d245.json
+backend/*.json
