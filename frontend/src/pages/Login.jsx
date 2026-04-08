@@ -5,12 +5,16 @@ function Login({ onShowSignup, onLoginSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await axios.post("/api/auth/login", { email, password });
+      const res = await axios.post(`${apiUrl}/api/auth/login`, {
+        email,
+        password,
+      });
       if (res.data === "Login Success") {
         onLoginSuccess({ email });
       } else {
@@ -26,16 +30,16 @@ function Login({ onShowSignup, onLoginSuccess }) {
   return (
     <div className="auth-card fade-in">
       <div className="need-help">Need Help?</div>
-      
+
       <h1>Welcome back</h1>
       <p className="subtitle">Enter your credentials to access your studio.</p>
 
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label htmlFor="email">Email Address</label>
-          <input 
+          <input
             id="email"
-            type="email" 
+            type="email"
             placeholder="name@studio.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -44,13 +48,19 @@ function Login({ onShowSignup, onLoginSuccess }) {
         </div>
 
         <div className="form-group">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <label htmlFor="password">Password</label>
             <span className="forgot-password">Forgot password?</span>
           </div>
-          <input 
+          <input
             id="password"
-            type="password" 
+            type="password"
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -63,7 +73,7 @@ function Login({ onShowSignup, onLoginSuccess }) {
         </button>
       </form>
 
-      <div className="auth-footer" style={{ marginTop: '2.5rem' }}>
+      <div className="auth-footer" style={{ marginTop: "2.5rem" }}>
         New to Architect? <span onClick={onShowSignup}>Create an account</span>
       </div>
     </div>
